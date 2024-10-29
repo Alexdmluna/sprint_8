@@ -1,3 +1,5 @@
+from time import sleep
+
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
@@ -41,9 +43,11 @@ class UrbanRoutesPage:
 
     def set_from(self, address_from):
         self.driver.find_element(*locators.UrbanRoutesPage.from_field).send_keys(data.address_from)
+        time.sleep(1)
 
     def set_to(self, to_address):
         self.driver.find_element(*locators.UrbanRoutesPage.to_field).send_keys(data.address_to)
+        time.sleep(1)
 
     def get_from(self):
         return self.driver.find_element(*locators.UrbanRoutesPage.from_field).get_property('value')
@@ -52,10 +56,16 @@ class UrbanRoutesPage:
         return self.driver.find_element(*locators.UrbanRoutesPage.to_field).get_property('value')
 
     def request_taxi(self):
+        WebDriverWait(self.driver, 3).until(
+            expected_conditions.element_to_be_clickable(locators.UrbanRoutesPage.taxi_button))
         self.driver.find_element(*locators.UrbanRoutesPage.taxi_button).click()
+        time.sleep(1)
 
     def pick_comfort(self):
+        WebDriverWait(self.driver, 3).until(
+            expected_conditions.element_to_be_clickable(locators.UrbanRoutesPage.comfort))
         self.driver.find_element(*locators.UrbanRoutesPage.comfort).click()
+        time.sleep(1)
 
     def set_phone_number(self):
         self.driver.find_element(*locators.UrbanRoutesPage.phone_field).click()
@@ -64,52 +74,74 @@ class UrbanRoutesPage:
             expected_conditions.visibility_of_element_located(locators.UrbanRoutesPage.phone_field_popup))
 
         self.driver.find_element(*locators.UrbanRoutesPage.phone_field_popup).send_keys(data.phone_number)
+        time.sleep(1)
 
         self.driver.find_element(*locators.UrbanRoutesPage.phone_summit_button).click()
+        time.sleep(1)
 
-        self.driver.find_element(*locators.UrbanRoutesPage.code_field).send_keys(retrieve_phone_code)
+        self.driver.find_element(*locators.UrbanRoutesPage.code_field).send_keys(retrieve_phone_code(self.driver))
+        time.sleep(1)
 
         WebDriverWait(self.driver, 3).until(
-            expected_conditions.element_to_be_clickable(*locators.UrbanRoutesPage.code_summit_button))
+            expected_conditions.element_to_be_clickable(locators.UrbanRoutesPage.code_summit_button))
 
         self.driver.find_element(*locators.UrbanRoutesPage.code_summit_button).click()
+        time.sleep(1)
 
     def set_payment(self):
         WebDriverWait(self.driver, 3).until(
-            expected_conditions.element_to_be_clickable(*locators.UrbanRoutesPage.payment_method_field))
+            expected_conditions.element_to_be_clickable(locators.UrbanRoutesPage.payment_method_field))
 
         self.driver.find_element(*locators.UrbanRoutesPage.payment_method_field).click()
+        time.sleep(1)
 
         self.driver.find_element(*locators.UrbanRoutesPage.add_card).click()
+        time.sleep(1)
 
         self.driver.find_element(*locators.UrbanRoutesPage.card_number_field).send_keys(data.card_number)
 
+        WebDriverWait(self.driver, 3).until(
+            expected_conditions.element_to_be_clickable(locators.UrbanRoutesPage.card_number_field))
+
         self.driver.find_element(*locators.UrbanRoutesPage.card_code_field).send_keys(data.card_code)
+        time.sleep(1)
 
         self.driver.find_element(*locators.UrbanRoutesPage.card_blank_field).click()
+        time.sleep(1)
 
-        self.driver.find_element(*locators.UrbanRoutesPage.card_summit_button).clickk()
+        self.driver.find_element(*locators.UrbanRoutesPage.card_summit_button).click()
+        time.sleep(1)
 
         self.driver.find_element(*locators.UrbanRoutesPage.payment_method_close_button).click()
+        time.sleep(1)
 
     def set_message(self):
         WebDriverWait(self.driver, 3).until(
-            expected_conditions.element_to_be_clickable(*locators.UrbanRoutesPage.comment_field))
+            expected_conditions.element_to_be_clickable(locators.UrbanRoutesPage.comment_field))
 
         self.driver.find_element(*locators.UrbanRoutesPage.comment_field).send_keys(data.message_for_driver)
-
-    def set_blanket_and_tissues(self):
+        time.sleep(1)
+    def set_requirements(self):
+        #Open requirements
+        self.driver.find_element(*locators.UrbanRoutesPage.requirements_dropdown).click()
+        time.sleep(1)
+        self.driver.find_element(*locators.UrbanRoutesPage.requirements_dropdown).click()
+        #Manta y pan;uelos
+        time.sleep(1)
         self.driver.find_element(*locators.UrbanRoutesPage.manta_panuelos_slider).click()
-
-    def set_ice_cream(self):
-        self.driver.find_element(*locators.UrbanRoutesPage.helado_plus_button).click(2)
+        time.sleep(1)
+        #Pendiente ingresar asserts para verificar que el slide esta activo y el hlado se haya agregado
+        self.driver.find_element(*locators.UrbanRoutesPage.helado_plus_button).click()
+        time.sleep(1)
+        self.driver.find_element(*locators.UrbanRoutesPage.helado_plus_button).click()
+        time.sleep(1)
 
     def call_taxi(self):
         self.driver.find_element(*locators.UrbanRoutesPage.call_taxi_button).click()
 
     def wait_driver_details(self):
-        WebDriverWait(self.driver, 20).until(
-            expected_conditions.element_to_be_clickable(*locators.UrbanRoutesPage.driver_order_details))
+        WebDriverWait(self.driver, 30).until(
+            expected_conditions.element_to_be_clickable(locators.UrbanRoutesPage.driver_order_details))
 
         self.driver.find_element(*locators.UrbanRoutesPage.driver_order_details).click()
 
