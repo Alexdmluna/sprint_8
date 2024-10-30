@@ -1,6 +1,6 @@
-urban_routes_url = 'https://cnt-2fe94960-8bc8-434e-9181-845e2858479a.containerhub.tripleten-services.com?lng=es'
+urban_routes_url = 'https://cnt-0c73b710-d8b2-4a13-8232-38c429090b3f.containerhub.tripleten-services.com/?lng=es'
 address_from = 'East 2nd Street, 601'
 address_to = '1300 1st St'
-phone_number = '+1 123 123 12 12'
+phone_number = '+11231231212'
 card_number, card_code = '1234 5678 9100', '111'
 message_for_driver = 'Traer chocolate'

@@ -1,5 +1,3 @@
-from time import sleep
-
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
@@ -67,6 +65,9 @@ class UrbanRoutesPage:
         self.driver.find_element(*locators.UrbanRoutesPage.comfort).click()
         time.sleep(1)
 
+    def get_comfort_status(self):
+        return self.driver.find_element(*locators.UrbanRoutesPage.comfort).is_enabled()
+
     def set_phone_number(self):
         self.driver.find_element(*locators.UrbanRoutesPage.phone_field).click()
 
@@ -86,7 +87,10 @@ class UrbanRoutesPage:
             expected_conditions.element_to_be_clickable(locators.UrbanRoutesPage.code_summit_button))
 
         self.driver.find_element(*locators.UrbanRoutesPage.code_summit_button).click()
-        time.sleep(1)
+        time.sleep(3)
+
+    def get_phone_number(self):
+        return self.driver.find_element(*locators.UrbanRoutesPage.phone_field).get_attribute('value')
 
     def set_payment(self):
         WebDriverWait(self.driver, 3).until(
@@ -115,12 +119,20 @@ class UrbanRoutesPage:
         self.driver.find_element(*locators.UrbanRoutesPage.payment_method_close_button).click()
         time.sleep(1)
 
+    def get_payment(self):
+        return self.driver.find_element(*locators.UrbanRoutesPage.pp_value_text).text()
+
+
     def set_message(self):
         WebDriverWait(self.driver, 3).until(
             expected_conditions.element_to_be_clickable(locators.UrbanRoutesPage.comment_field))
 
         self.driver.find_element(*locators.UrbanRoutesPage.comment_field).send_keys(data.message_for_driver)
         time.sleep(1)
+
+    def get_message(self):
+        return self.driver.find_element(*locators.UrbanRoutesPage.comment_field).get_attribute('value')
+
     def set_requirements(self):
         #Open requirements
         self.driver.find_element(*locators.UrbanRoutesPage.requirements_dropdown).click()
@@ -136,14 +148,22 @@ class UrbanRoutesPage:
         self.driver.find_element(*locators.UrbanRoutesPage.helado_plus_button).click()
         time.sleep(1)
 
+    def get_helado_counter(self):
+        return self.driver.find_element(*locators.UrbanRoutesPage.helado_counter_value).text()
+
+    def get_slider_status(self):
+        return self.driver.find_element(*locators.UrbanRoutesPage.manta_panuelos_slider).is_selected()
+
     def call_taxi(self):
         self.driver.find_element(*locators.UrbanRoutesPage.call_taxi_button).click()
 
     def wait_driver_details(self):
         WebDriverWait(self.driver, 30).until(
             expected_conditions.element_to_be_clickable(locators.UrbanRoutesPage.driver_order_details))
-
         self.driver.find_element(*locators.UrbanRoutesPage.driver_order_details).click()
+
+    def get_order_header_title(self):
+        return self.driver.find_element(*locators.UrbanRoutesPage.order_header_title).text()
 
 
 
