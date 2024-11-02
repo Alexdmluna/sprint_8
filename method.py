@@ -90,7 +90,7 @@ class UrbanRoutesPage:
         time.sleep(3)
 
     def get_phone_number(self):
-        return self.driver.find_element(*locators.UrbanRoutesPage.phone_field).get_attribute('value')
+        return self.driver.find_element(*locators.UrbanRoutesPage.phone_field_text).text
 
     def set_payment(self):
         WebDriverWait(self.driver, 3).until(
@@ -120,7 +120,7 @@ class UrbanRoutesPage:
         time.sleep(1)
 
     def get_payment(self):
-        return self.driver.find_element(*locators.UrbanRoutesPage.pp_value_text).text()
+        return self.driver.find_element(*locators.UrbanRoutesPage.pp_value_text).text
 
 
     def set_message(self):
@@ -149,21 +149,20 @@ class UrbanRoutesPage:
         time.sleep(1)
 
     def get_helado_counter(self):
-        return self.driver.find_element(*locators.UrbanRoutesPage.helado_counter_value).text()
+        return self.driver.find_element(*locators.UrbanRoutesPage.helado_counter_value_2).text
 
     def get_slider_status(self):
-        return self.driver.find_element(*locators.UrbanRoutesPage.manta_panuelos_slider).is_selected()
+        return self.driver.find_element(*locators.UrbanRoutesPage.manta_panuelos_check).is_selected()
 
     def call_taxi(self):
         self.driver.find_element(*locators.UrbanRoutesPage.call_taxi_button).click()
 
     def wait_driver_details(self):
         WebDriverWait(self.driver, 30).until(
-            expected_conditions.element_to_be_clickable(locators.UrbanRoutesPage.driver_order_details))
-        self.driver.find_element(*locators.UrbanRoutesPage.driver_order_details).click()
+            expected_conditions.visibility_of_element_located(locators.UrbanRoutesPage.driver_order_details))
 
     def get_order_header_title(self):
-        return self.driver.find_element(*locators.UrbanRoutesPage.order_header_title).text()
+        return self.driver.find_element(*locators.UrbanRoutesPage.order_header_title).text
 
 
 

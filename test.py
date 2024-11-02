@@ -58,14 +58,17 @@ class TestUrbanRoutes:
 
     def test_set_requirements(self):
         self.routes_page.set_requirements()
-        assert self.routes_page.get_helado_counter() == 2
+        assert self.routes_page.get_helado_counter() == '2'
         assert self.routes_page.get_slider_status() == True
 
     def test_call_taxi(self):
         self.routes_page.call_taxi()
         order_header_title = self.routes_page.get_order_header_title()
         assert  'Buscar automóvil' in order_header_title
-        self.routes_page.wait_driver_details()
+
+    def test_wait_driver_details(self):
+        time.sleep(30)
+        order_header_title = self.routes_page.get_order_header_title()
         assert 'El conductor llegará' in order_header_title
 
     @classmethod
